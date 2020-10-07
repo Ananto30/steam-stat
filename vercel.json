@@ -1,0 +1,8 @@
+{
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "https://github.com/Ananto30/steam-stat"
+      }
+    ]
+  }

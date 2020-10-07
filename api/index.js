@@ -4,10 +4,21 @@ const steam = new SteamAPI(process.env.STEAM_APP_ID);
 
 countRecentPlayHours = (recentGames) => {
   let recentMinutes = 0;
-  for (let g in recentGames) {
-    recentMinutes += g.playTime2;
-  }
-  return (recentMinutes === 0 ? 0 : recentMinutes / 60) + " hours";
+  recentGames.forEach((g) => (recentMinutes += parseInt(g.playTime2)));
+  return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
+};
+
+const personaMap = {
+  0: "Offline",
+  1: "Online",
+  2: "Busy",
+  3: "Away",
+  4: "Snooze",
+  5: "Looking to trade",
+  6: "Looking to play",
+};
+convertPersonaState = (personaState) => {
+  return personaMap[parseInt(personaState)];
 };
 
 module.exports = async (req, res) => {
@@ -28,13 +39,15 @@ module.exports = async (req, res) => {
 
   const recentGames = await steam.getUserRecentGames(steamId);
 
+  res.setHeader("Content-Type", "image/svg+xml");
+  res.setHeader("Cache-Control", `public, max-age=18000`);
   return res.send(
     renderRecentStatCard({
-      summary: summary.nickname,
+      nickname: summary.nickname,
       steamProfileUrl: summary.url,
       avatarMedium: summary.avatar.medium,
       recentPlayHours: countRecentPlayHours(recentGames),
-      personaState: summary.personaState,
-    })
+      personaState: convertPersonaState(summary.personaState),
+    }, recentGames)
   );
 };
