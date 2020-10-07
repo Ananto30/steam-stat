@@ -1,0 +1,14 @@
+{
+  "name": "steam-stat",
+  "version": "1.0.0",
+  "description": "Steam stats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ananto",
+  "license": "MIT",
+  "dependencies": {
+    "steamapi": "^2.1.2"
+  }
+}
