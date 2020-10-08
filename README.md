@@ -11,7 +11,7 @@ You can put in your GitHub readme too 😃
 ![Travis](https://steam-stat.vercel.app/api?profileName=ananto)
 ```
 
-![[Travis](https://steam-stat.vercel.app/api?profileName=ananto)](https://steam-stat.vercel.app/api?profileName=ananto)
+[![Travis](https://steam-stat.vercel.app/api?profileName=ananto)](https://steam-stat.vercel.app/api?profileName=ananto)
 
 You need to provide the profile name in query parameter `?profileName=ananto`.
 
