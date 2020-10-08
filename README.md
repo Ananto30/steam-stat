@@ -7,13 +7,19 @@ This can be used with `.md` files!
 
 You can put in your GitHub readme too 😃
 
-## Example
+## Example 📝
 
+For `.md` files - 
 ```
 ![Travis](https://steam-stat.vercel.app/api?profileName=ananto)
 ```
+For using as `img` property in html or md files -
+```
+<img src="https://steam-stat.vercel.app/api?profileName=ananto"/>
+```
 
 [![Travis](https://steam-stat.vercel.app/api?profileName=ananto)](https://steam-stat.vercel.app/api?profileName=ananto)
+
 
 You need to provide the profile name in query parameter `?profileName=ananto`.
 
