@@ -1,4 +1,6 @@
 # Steam-stats
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Ananto30/steam-stat.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Ananto30/steam-stat/context:javascript)
+
 Steam stats svg generator. Create your own Steam stat dynamically and share anywhere.
 
 This can be used with `.md` files!
