@@ -1,37 +1,4 @@
-recentGame = (stats) => {
-  const { gameName, gameLogo, gamePlayTime, animationDelay, translateY } = stats;
-  return `
-        <g transform="translate(0, ${translateY})">
-            <g class="stagger" style="animation-delay: ${animationDelay}ms" transform="translate(25, 0)">
-            <image height="40" href="${gameLogo}" />
-            <text class="game-header bold" x="45" y="15">${gameName}</text>
-            <text class="stat" x="45" y="33">${gamePlayTime} played in last 2 weeks</text>
-            </g>
-        </g>
-    `;
-};
-
-convertGamePlayTime = (playTime2) => {
-  return (playTime2 === 0 ? 0 : (playTime2 / 60).toFixed(2)) + " hours";
-};
-
-renderRecentGames = (recentGames) => {
-  let groupItems;
-  let animationDelay = 450;
-  let translateY = 0;
-  recentGames.forEach((game) => {
-    groupItems += recentGame({
-      gameName: game.name,
-      gameLogo: game.iconURL,
-      gamePlayTime: convertGamePlayTime(game.playTime2),
-      animationDelay: animationDelay,
-      translateY: translateY
-    });
-    animationDelay += 150;
-    translateY += 45;
-  });
-  return groupItems;
-};
+const { renderRecentGames } = require("./recent-games");
 
 exports.renderRecentStatCard = (profileStats, recentGames) => {
   const {
@@ -41,7 +8,6 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
     recentPlayHours,
     personaState,
   } = profileStats;
-
   return `
     <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <style>
@@ -85,17 +51,17 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
 
         <g transform="translate(25, 35)">
             <g transform="translate(0, 0)">
-            <image href="${avatarMedium}" x="0" y="-15" class="header" height="55"></image>
-            <a href="${steamProfileUrl}">
-                <text x="65" y="0" class="header" text-decoration="underline">${nickname}</text>
-            </a>
-            
-            <text x="65" y="40" class="stat">Status: ${personaState}</text>
-            <text x="65" y="22" class="stat">
-                <tspan font-weight="bold">
-                ${recentPlayHours}
-                </tspan> played in last 2 weeks
-            </text>
+              <image x="0" y="-15" href="${avatarMedium}" style="animation: fadeInAnimation 0.8s ease-in-out forwards;" width="55" height="55"/>
+              <a href="${steamProfileUrl}">
+                  <text x="65" y="0" class="header" text-decoration="underline">${nickname}</text>
+              </a>
+              
+              <text x="65" y="40" class="stat">Status: ${personaState}</text>
+              <text x="65" y="22" class="stat">
+                  <tspan font-weight="bold">
+                  ${recentPlayHours}
+                  </tspan> played recently
+              </text>
             </g>
         </g>
         
