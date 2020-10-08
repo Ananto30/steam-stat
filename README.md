@@ -37,5 +37,10 @@ You need to provide the profile name in query parameter `?profileName=ananto`.
 
 ## Contribution
 
-Contributions are welcome ❤️
+Contributions are welcomed ❤️
+
 There are many things to add, so please feel free to discuss and improve the code quality
+
+<hr/>
+
+Inspired by [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) and [natemoo-re](https://github.com/natemoo-re/natemoo-re)
