@@ -33,3 +33,9 @@ You need to provide the profile name in query parameter `?profileName=ananto`.
 ### How to make profile public
 
 ![Make profile public](./ss/public.png?raw=true "Make profile public")
+
+
+## Contribution
+
+Contributions are welcome ❤️
+There are many things to add, so please feel free to discuss and improve the code quality
