@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
   await downloadRecentGamesImages(recentGames);
 
   res.setHeader("Content-Type", "image/svg+xml");
-  res.setHeader("Cache-Control", `public, max-age=18000`);
+  res.setHeader("Cache-Control", `public, max-age=10800`);
   return res.send(
     renderRecentStatCard(
       {
