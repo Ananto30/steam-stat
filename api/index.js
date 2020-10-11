@@ -1,33 +1,12 @@
 const SteamAPI = require("steamapi");
-const { imageToData } = require("../src/helpers");
+const {
+  imageToData,
+  downloadRecentGamesImages,
+  convertPersonaState,
+  countRecentPlayHours,
+} = require("../src/helpers");
 const { renderRecentStatCard } = require("../src/components/recent-stat");
 const steam = new SteamAPI(process.env.STEAM_APP_ID);
-
-countRecentPlayHours = (recentGames) => {
-  let recentMinutes = 0;
-  recentGames.forEach((g) => (recentMinutes += parseInt(g.playTime2)));
-  return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
-};
-
-const personaMap = {
-  0: "Offline",
-  1: "Online",
-  2: "Busy",
-  3: "Away",
-  4: "Snooze",
-  5: "Looking to trade",
-  6: "Looking to play",
-};
-
-convertPersonaState = (personaState) => {
-  return personaMap[parseInt(personaState)];
-};
-
-downloadRecentGamesImages = async (recentGames) => {
-  await Promise.all(recentGames.slice(0,2).map(async (game) => {
-    game.iconURL = await imageToData(game.iconURL);
-  }));
-};
 
 module.exports = async (req, res) => {
   const { profileName, profileUrl } = req.query;
