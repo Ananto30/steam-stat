@@ -1,17 +1,25 @@
 # Steam-stats
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Ananto30/steam-stat.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Ananto30/steam-stat/context:javascript)
+
 Steam stats svg generator. Create your own Steam stat dynamically and share anywhere.
 
 This can be used with `.md` files!
 
 You can put in your GitHub readme too 😃
 
-## Example
+## Example 📝
 
+For `.md` files - 
 ```
 ![Travis](https://steam-stat.vercel.app/api?profileName=ananto)
 ```
+For using as `img` property in html or md files -
+```
+<img src="https://steam-stat.vercel.app/api?profileName=ananto"/>
+```
 
 [![Travis](https://steam-stat.vercel.app/api?profileName=ananto)](https://steam-stat.vercel.app/api?profileName=ananto)
+
 
 You need to provide the profile name in query parameter `?profileName=ananto`.
 
@@ -25,3 +33,14 @@ You need to provide the profile name in query parameter `?profileName=ananto`.
 ### How to make profile public
 
 ![Make profile public](./ss/public.png?raw=true "Make profile public")
+
+
+## Contribution
+
+Contributions are welcomed ❤️
+
+There are many things to add, so please feel free to discuss and improve the code quality
+
+<hr/>
+
+Inspired by [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) and [natemoo-re](https://github.com/natemoo-re/natemoo-re)
