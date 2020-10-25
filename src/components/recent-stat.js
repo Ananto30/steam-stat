@@ -1,4 +1,6 @@
+const { formatRecentlyPlayedGamesName } = require("../helpers");
 const { renderRecentGames } = require("./recent-games");
+const { renderRecentGamesImages } = require("./recent-games-images");
 
 exports.renderRecentStatCard = (profileStats, recentGames) => {
   const {
@@ -6,24 +8,25 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
     steamProfileUrl,
     avatarMedium,
     recentPlayHours,
+    recentlyPlayedGamesName,
     personaState,
   } = profileStats;
   return `
-    <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="360" height="220" viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg">
         <style>
             .header {
-            font: 600 16px "Segoe UI", Ubuntu, Sans-Serif;
+            font: 600 14px "Segoe UI", Ubuntu, Sans-Serif;
             fill: #ffffff;
             animation: fadeInAnimation 0.8s ease-in-out forwards;
             }
 
             .game-header {
-            font: 600 14px "Segoe UI", Ubuntu, Sans-Serif;
+            font: 600 12px "Motiva Sans", "Segoe UI", Ubuntu, Sans-Serif;
             fill: #bcbab8;
             }
 
             .stat {
-            font: 400 14px "Motiva Sans", Ubuntu, "Helvetica Neue", Sans-Serif;
+            font: 400 12px "Motiva Sans", Ubuntu, "Helvetica Neue", Sans-Serif;
             fill: #bcbab8;
             animation: fadeInAnimation 0.8s ease-in-out forwards;
             }
@@ -47,29 +50,29 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
             }
         </style>
         undefined
-        <rect x="0.5" y="0.5" rx="4.5" height="99%" stroke="#E4E2E2" width="316" fill="#171a21" stroke-opacity="1" />
+        <rect x="0.5" y="0.5" rx="4.5" height="99%" stroke="#E4E2E2" width="360" fill="#171a21" stroke-opacity="1" />
 
-        <g transform="translate(25, 35)">
+        <g transform="translate(15, 30)">
             <g transform="translate(0, 0)">
-              <image x="0" y="-15" href="${avatarMedium}" style="animation: fadeInAnimation 0.8s ease-in-out forwards;" width="55" height="55"/>
+              <image x="0" y="-15" href="${avatarMedium}" style="animation: fadeInAnimation 0.8s ease-in-out forwards;" width="45" height="45"/>
               <a href="${steamProfileUrl}">
-                  <text x="65" y="0" class="header" text-decoration="underline">${nickname}</text>
+                  <text x="53" y="-3" class="header" text-decoration="underline">${nickname}</text>
               </a>
-              
-              <text x="65" y="40" class="stat">Status: ${personaState}</text>
-              <text x="65" y="22" class="stat">
+              <text x="53" y="14" class="stat">
+                  Recently played 
                   <tspan font-weight="bold">
-                  ${recentPlayHours}
-                  </tspan> played recently
+                  ${formatRecentlyPlayedGamesName(recentlyPlayedGamesName)}
+                  </tspan>
               </text>
+              <text x="53" y="28" class="stat">Currently: ${personaState}</text> 
             </g>
         </g>
         
-        <line x1="10" y1="85" x2="306" y2="85" style="stroke:#bcbab8;animation: fadeInAnimation 1s ease-in-out forwards;" />
+        <line x1="10" y1="67" x2="350" y2="67" style="stroke:#bcbab8;animation: fadeInAnimation 1s ease-in-out forwards;" />
 
-        <g transform="translate(0, 95)">
+        <g transform="translate(0, 75)">
             <svg x="0" y="0">
-            ${renderRecentGames(recentGames)}
+            ${renderRecentGamesImages(recentGames)}
             </svg>
         </g>
     </svg>

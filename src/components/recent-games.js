@@ -7,13 +7,13 @@ recentGame = (stats) => {
     translateY,
   } = stats;
   return `
-          <g transform="translate(0, ${translateY})">
-              <g class="stagger" style="animation-delay: ${animationDelay}ms" transform="translate(25, 0)">
-              <image x="0" y="0" height="40" width="40" href="${gameLogo}"></image>
-              <text class="game-header bold" x="45" y="15">${gameName}</text>
-              <text class="stat" x="45" y="33">${gamePlayTime} played in last 2 weeks</text>
-              </g>
-          </g>
+        <g transform="translate(-10, ${translateY})">
+            <g class="stagger" style="animation-delay: ${animationDelay}ms" transform="translate(25, 0)">
+            <image x="0" y="0" height="30" width="30" href="${gameLogo}"></image>
+            <text class="game-header bold" x="35" y="12">${gameName}</text>
+            <text class="stat" x="35" y="27">${gamePlayTime} played in last 2 weeks</text>
+            </g>
+        </g>
       `;
 };
 
@@ -25,7 +25,7 @@ exports.renderRecentGames = (recentGames) => {
   let groupItems;
   let animationDelay = 450;
   let translateY = 0;
-  recentGames.slice(0, 2).forEach((game) => {
+  recentGames.slice(0, 3).forEach((game) => {
     groupItems += recentGame({
       gameName: game.name,
       gameLogo: game.iconURL,
@@ -34,7 +34,7 @@ exports.renderRecentGames = (recentGames) => {
       translateY: translateY,
     });
     animationDelay += 150;
-    translateY += 45;
+    translateY += 35;
   });
   return groupItems;
 };
