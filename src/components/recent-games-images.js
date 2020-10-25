@@ -1,8 +1,6 @@
 recentGame = (stats) => {
   const {
-    gameName,
     gameLogo,
-    gamePlayTime,
     animationDelay,
     translateY,
     translateX,
@@ -34,9 +32,7 @@ exports.renderRecentGamesImages = (recentGames) => {
         translateY = 0;
       }
       groupItems += recentGame({
-        gameName: game.name,
         gameLogo: game.logoURL,
-        gamePlayTime: convertGamePlayTime(game.playTime2),
         animationDelay: animationDelay,
         translateY: translateY,
         translateX: translateX,
