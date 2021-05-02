@@ -50,7 +50,7 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
             }
         </style>
         undefined
-        <rect x="0.5" y="0.5" rx="4.5" height="99%" stroke="#E4E2E2" width="360" fill="#171a21" stroke-opacity="1" />
+        <rect x="0.5" y="0.5" rx="4.5" height="99%" stroke="#E4E2E2" width="99%" fill="#171a21" stroke-opacity="1" />
 
         <g transform="translate(15, 30)">
             <g transform="translate(0, 0)">
