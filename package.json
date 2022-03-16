@@ -11,5 +11,6 @@
   "dependencies": {
     "node-fetch": "^3.2.3",
     "steamapi": "^2.2.0"
-  }
+  },
+  "type": "module"
 }

@@ -1,17 +1,18 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
-exports.imageToData = async (imageUrl) => {
-  const buff = await (await fetch(imageUrl)).arrayBuffer();
-  return `data:image/jpeg;base64,${Buffer.from(buff).toString("base64")}`;
-};
+export async function imageToData(imageUrl) {
+  const imageData = await fetch(imageUrl);
+  const buff = await imageData.arrayBuffer();
+  return `data:image/jpg;base64,${Buffer.from(buff).toString("base64")}`;
+}
 
-exports.countRecentPlayHours = (recentGames) => {
+export function countRecentPlayHours(recentGames) {
   let recentMinutes = 0;
   recentGames.forEach((g) => (recentMinutes += parseInt(g.playTime2)));
   return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
-};
+}
 
-exports.recentlyPlayedGames = async (recentGames) => {
+export async function recentlyPlayedGames(recentGames) {
   return await Promise.all(
     recentGames.map(async (game) => {
       return {
@@ -21,11 +22,11 @@ exports.recentlyPlayedGames = async (recentGames) => {
       };
     })
   );
-};
+}
 
-exports.recentlyPlayedGamesName = (recentGames) => {
+export function recentlyPlayedGamesName(recentGames) {
   return recentGames.map((game) => game.name).join(", ");
-};
+}
 
 const personaMap = {
   0: "Offline",
@@ -37,19 +38,19 @@ const personaMap = {
   6: "Looking to play",
 };
 
-exports.convertPersonaState = (personaState) => {
+export function convertPersonaState(personaState) {
   return personaMap[parseInt(personaState)];
-};
+}
 
-exports.downloadGamesImages = async (recentGames) => {
+export async function downloadGamesImages(recentGames) {
   await Promise.all(
     recentGames.map(async (game) => {
-      game.iconURL = await this.imageToData(game.iconURL);
-      game.logoURL = await this.imageToData(game.logoURL);
+      game.iconURL = await imageToData(game.iconURL);
+      // game.logoURL = await imageToData(game.logoURL);
     })
   );
-};
+}
 
-exports.formatRecentlyPlayedGamesName = (names) => {
+export function formatRecentlyPlayedGamesName(names) {
   return names.replace("&", "&amp;");
-};
+}

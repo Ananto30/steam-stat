@@ -1,4 +1,4 @@
-recentGame = (stats) => {
+const recentGame = (stats) => {
   const {
     gameName,
     gameLogo,
@@ -11,25 +11,25 @@ recentGame = (stats) => {
             <g class="stagger" style="animation-delay: ${animationDelay}ms" transform="translate(25, 0)">
             <image x="0" y="0" height="30" width="30" href="${gameLogo}"></image>
             <text class="game-header bold" x="35" y="12">${gameName}</text>
-            <text class="stat" x="35" y="27">${gamePlayTime} played in last 2 weeks</text>
+            <text class="stat" x="35" y="27">${gamePlayTime}</text>
             </g>
         </g>
       `;
 };
 
-convertGamePlayTime = (playTime2) => {
+const convertGamePlayTime = (playTime2) => {
   return (playTime2 === 0 ? 0 : (playTime2 / 60).toFixed(2)) + " hours";
 };
 
-exports.renderRecentGames = (recentGames) => {
+export function renderRecentGames(recentGames) {
   let groupItems;
   let animationDelay = 450;
   let translateY = 0;
-  recentGames.slice(0, 3).forEach((game) => {
+  recentGames.sort((a, b) => b.playTime - a.playTime).slice(0, 5).forEach((game) => {
     groupItems += recentGame({
       gameName: game.name,
       gameLogo: game.iconURL,
-      gamePlayTime: convertGamePlayTime(game.playTime2),
+      gamePlayTime: convertGamePlayTime(game.playTime),
       animationDelay: animationDelay,
       translateY: translateY,
     });
@@ -37,4 +37,4 @@ exports.renderRecentGames = (recentGames) => {
     translateY += 35;
   });
   return groupItems;
-};
+}

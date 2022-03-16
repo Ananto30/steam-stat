@@ -1,4 +1,4 @@
-recentGame = (stats) => {
+let recentGame = (stats) => {
   const {
     gameLogo,
     animationDelay,
@@ -14,11 +14,11 @@ recentGame = (stats) => {
       `;
 };
 
-convertGamePlayTime = (playTime2) => {
+let convertGamePlayTime = (playTime2) => {
   return (playTime2 === 0 ? 0 : (playTime2 / 60).toFixed(2)) + " hours";
 };
 
-exports.renderRecentGamesImages = (recentGames) => {
+export function renderRecentGamesImages(recentGames) {
   let groupItems;
   let animationDelay = 450;
   let translateY = 0;
@@ -41,4 +41,4 @@ exports.renderRecentGamesImages = (recentGames) => {
       translateY += 45;
     });
   return groupItems;
-};
+}

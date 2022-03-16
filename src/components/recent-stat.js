@@ -1,8 +1,8 @@
-const { formatRecentlyPlayedGamesName } = require("../helpers");
-const { renderRecentGames } = require("./recent-games");
-const { renderRecentGamesImages } = require("./recent-games-images");
+import { formatRecentlyPlayedGamesName } from "../helpers.js";
+import { renderRecentGamesImages } from "./recent-games-images.js";
+import { renderRecentGames } from "./recent-games.js";
 
-exports.renderRecentStatCard = (profileStats, recentGames) => {
+export function renderRecentStatCard(profileStats, recentGames) {
   const {
     nickname,
     steamProfileUrl,
@@ -12,7 +12,7 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
     personaState,
   } = profileStats;
   return `
-    <svg width="360" height="220" viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="360" height="255" viewBox="0 0 360 255" fill="none" xmlns="http://www.w3.org/2000/svg">
         <style>
             .header {
             font: 600 14px "Segoe UI", Ubuntu, Sans-Serif;
@@ -72,10 +72,10 @@ exports.renderRecentStatCard = (profileStats, recentGames) => {
 
         <g transform="translate(0, 75)">
             <svg x="0" y="0">
-            ${renderRecentGamesImages(recentGames)}
+            ${renderRecentGames(recentGames)}
             </svg>
         </g>
     </svg>
 
   `;
-};
+}
