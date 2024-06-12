@@ -1,7 +1,7 @@
 import SteamAPI from "steamapi";
 import { imageToData, downloadGamesImages, convertPersonaState, countRecentPlayHours, recentlyPlayedGamesName } from "../src/helpers.js";
 import { renderRecentStatCard } from "../src/components/recent-stat.js";
-import Game from "../node_modules/steamapi/src/structures/Game.js";
+import Game from "../node_modules/steamapi/dist/src/structures/Game.js";
 const steam = new SteamAPI(process.env.STEAM_APP_ID);
 
 export default async (req, res) => {
