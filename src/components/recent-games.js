@@ -27,9 +27,9 @@ export function renderRecentGames(recentGames) {
   let translateY = 0;
   recentGames.sort((a, b) => b.playTime - a.playTime).slice(0, 5).forEach((game) => {
     groupItems += recentGame({
-      gameName: game.name,
+      gameName: game.game.name,
       gameLogo: game.iconURL,
-      gamePlayTime: convertGamePlayTime(game.playTime),
+      gamePlayTime: convertGamePlayTime(game.minutes),
       animationDelay: animationDelay,
       translateY: translateY,
     });

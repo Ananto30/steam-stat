@@ -8,24 +8,13 @@ export async function imageToData(imageUrl) {
 
 export function countRecentPlayHours(recentGames) {
   let recentMinutes = 0;
-  recentGames.forEach((g) => (recentMinutes += parseInt(g.playTime2)));
+  recentGames.forEach((g) => (recentMinutes += parseInt(g.recentMinutes)));
   return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
 }
 
-export async function recentlyPlayedGames(recentGames) {
-  return await Promise.all(
-    recentGames.map(async (game) => {
-      return {
-        name: game.name,
-        playTime2: game.playTime2,
-        iconURL: await this.imageToData(game.iconURL),
-      };
-    })
-  );
-}
 
 export function recentlyPlayedGamesName(recentGames) {
-  return recentGames.map((game) => game.name).join(", ");
+  return recentGames.map((game) => game.game.name).join(", ");
 }
 
 const personaMap = {
@@ -42,9 +31,16 @@ export function convertPersonaState(personaState) {
   return personaMap[parseInt(personaState)];
 }
 
+/**
+ * Downloads images for the games in the provided list.
+ *
+ * @param {Array<{game: {id: number, name: string, icon: string, hasCommunityVisibleStats: boolean, hasLeaderboards: boolean, descriptorIDs: any}, minutes: number, recentMinutes: number, windowsMinutes: number, macMinutes: number, linuxMinutes: number, disconnectedMinutes: number, lastPlayedTimestamp: number}>} recentGames - The list of games to download images for.
+ * @returns {Promise<void>}
+ */
 export async function downloadGamesImages(recentGames) {
   await Promise.all(
     recentGames.map(async (game) => {
+      game.iconURL = imageUrl(game.game.id, game.game.icon);
       game.iconURL = await imageToData(game.iconURL);
       // game.logoURL = await imageToData(game.logoURL);
     })
@@ -53,4 +49,9 @@ export async function downloadGamesImages(recentGames) {
 
 export function formatRecentlyPlayedGamesName(names) {
   return names.replace("&", "&amp;");
+}
+
+function imageUrl(gameId, iconId) {
+  // return `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${gameId}/${iconId}.ico`;
+  return `http://media.steampowered.com/steamcommunity/public/images/apps/${gameId}/${iconId}.jpg`;
 }
