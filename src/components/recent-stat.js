@@ -1,17 +1,19 @@
-import { formatRecentlyPlayedGamesName } from "../helpers.js";
-import { renderRecentGamesImages } from "./recent-games-images.js";
-import { renderRecentGames } from "./recent-games.js";
+import {
+    formatRecentlyPlayedGamesName
+} from "../helpers.js";
+import {
+    renderRecentGames
+} from "./recent-games.js";
 
 export function renderRecentStatCard(profileStats, recentGames) {
-  const {
-    nickname,
-    steamProfileUrl,
-    avatarMedium,
-    recentPlayHours,
-    recentlyPlayedGamesName,
-    personaState,
-  } = profileStats;
-  return `
+    const {
+        nickname,
+        steamProfileUrl,
+        avatarMedium,
+        recentlyPlayedGamesName,
+        personaState,
+    } = profileStats;
+    return `
     <svg width="360" height="255" viewBox="0 0 360 255" fill="none" xmlns="http://www.w3.org/2000/svg">
         <style>
             .header {

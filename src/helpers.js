@@ -1,34 +1,34 @@
 import fetch from "node-fetch";
 
 export async function imageToData(imageUrl) {
-  const imageData = await fetch(imageUrl);
-  const buff = await imageData.arrayBuffer();
-  return `data:image/jpg;base64,${Buffer.from(buff).toString("base64")}`;
+    const imageData = await fetch(imageUrl);
+    const buff = await imageData.arrayBuffer();
+    return `data:image/jpg;base64,${Buffer.from(buff).toString("base64")}`;
 }
 
 export function countRecentPlayHours(recentGames) {
-  let recentMinutes = 0;
-  recentGames.forEach((g) => (recentMinutes += parseInt(g.recentMinutes)));
-  return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
+    let recentMinutes = 0;
+    recentGames.forEach((g) => (recentMinutes += parseInt(g.recentMinutes)));
+    return (recentMinutes === 0 ? 0 : (recentMinutes / 60).toFixed(2)) + " hours";
 }
 
 
 export function recentlyPlayedGamesName(recentGames) {
-  return recentGames.map((game) => game.game.name).join(", ");
+    return recentGames.map((game) => game.game.name).join(", ");
 }
 
 const personaMap = {
-  0: "Offline",
-  1: "Online",
-  2: "Busy",
-  3: "Away",
-  4: "Snooze",
-  5: "Looking to trade",
-  6: "Looking to play",
+    0: "Offline",
+    1: "Online",
+    2: "Busy",
+    3: "Away",
+    4: "Snooze",
+    5: "Looking to trade",
+    6: "Looking to play",
 };
 
 export function convertPersonaState(personaState) {
-  return personaMap[parseInt(personaState)];
+    return personaMap[parseInt(personaState)];
 }
 
 /**
@@ -38,20 +38,19 @@ export function convertPersonaState(personaState) {
  * @returns {Promise<void>}
  */
 export async function downloadGamesImages(recentGames) {
-  await Promise.all(
-    recentGames.map(async (game) => {
-      game.iconURL = imageUrl(game.game.id, game.game.icon);
-      game.iconURL = await imageToData(game.iconURL);
-      // game.logoURL = await imageToData(game.logoURL);
-    })
-  );
+    await Promise.all(
+        recentGames.map(async (game) => {
+            let iconURL = imageUrl(game.game.id, game.game.icon);
+            game.image = await imageToData(iconURL);
+        })
+    );
 }
 
 export function formatRecentlyPlayedGamesName(names) {
-  return names.replace("&", "&amp;");
+    return names.replace(/&/g, "&amp;");
 }
 
 function imageUrl(gameId, iconId) {
-  // return `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${gameId}/${iconId}.ico`;
-  return `http://media.steampowered.com/steamcommunity/public/images/apps/${gameId}/${iconId}.jpg`;
+    // return `https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${gameId}/${iconId}.ico`;
+    return `http://media.steampowered.com/steamcommunity/public/images/apps/${gameId}/${iconId}.jpg`;
 }
