@@ -1,8 +1,7 @@
 import SteamAPI from "steamapi";
 import { imageToData, downloadGamesImages, convertPersonaState, countRecentPlayHours, recentlyPlayedGamesName } from "../src/helpers.js";
 import { renderRecentStatCard } from "../src/components/recent-stat.js";
-import Game from "../node_modules/steamapi/src/structures/Game.js";
-const steam = new SteamAPI(process.env.STEAM_APP_ID);
+const steam = new SteamAPI(process.env.STEAM_API_KEY);
 
 export default async (req, res) => {
   const { profileName, profileUrl } = req.query;
@@ -11,18 +10,24 @@ export default async (req, res) => {
     if (profileName == undefined && profileUrl == undefined) {
       return res.status(400).send("Missing profileName or profileUrl");
     }
+
     const steamId = await getSteamId();
+    console.log("Steam ID: ", steamId);
 
     const summary = await steam.getUserSummary(steamId);
+    console.log("User summary: ", summary);
 
     let recentGames = await steam.getUserRecentGames(steamId);
-    let ownedGames = await steam
-      .get(
-        `/IPlayerService/GetOwnedGames/v1?steamid=${steamId}&include_appinfo=1&include_played_free_games=1`
-      )
-      .then((json) => json.response.games.map((game) => new Game(game)));
-    
-    console.table(ownedGames)
+    console.log("Recent games: ");
+    console.table(recentGames);
+
+    let ownedGames = await steam.getUserOwnedGames(steamId, { includeAppInfo: true, includeFreeGames: true })
+    console.log("Owned games: ");
+    console.table(ownedGames);
+
+    // sort games by minutes
+    recentGames = recentGames.sort((a, b) => b.minutes - a.minutes).slice(0, 2);
+    ownedGames = ownedGames.sort((a, b) => b.minutes - a.minutes).slice(0, 5);
 
     await downloadGamesImages(ownedGames);
 
@@ -35,9 +40,7 @@ export default async (req, res) => {
           steamProfileUrl: summary.url,
           avatarMedium: await imageToData(summary.avatar.medium),
           recentPlayHours: countRecentPlayHours(recentGames),
-          recentlyPlayedGamesName: recentlyPlayedGamesName(
-            recentGames.slice(0, 2)
-          ).slice(0, 30),
+          recentlyPlayedGamesName: recentlyPlayedGamesName(recentGames).slice(0, 30),
           personaState: convertPersonaState(summary.personaState),
         },
         ownedGames
