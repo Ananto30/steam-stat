@@ -17,7 +17,7 @@ For using as `img` property in html or md files -
 <img src="https://steam-stat.vercel.app/api?profileName=JuanTheJoker"/>
 ```
 
-[![JuanTheJoker](https://steam-stat.vercel.app/api?profileName=ananto)](https://steam-stat.vercel.app/api?profileName=JuanTheJoker)
+[![JuanTheJoker](https://steam-stat.vercel.app/api?profileName=JuanTheJoker)](https://steam-stat.vercel.app/api?profileName=JuanTheJoker)
 
 
 You need to provide the profile name in query parameter `?profileName=JuanTheJoker`.
