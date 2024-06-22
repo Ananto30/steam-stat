@@ -31,7 +31,7 @@ export default async (req, res) => {
         let ownedGames = await steam.getUserOwnedGames(steamId, {
             includeAppInfo: true,
             includeFreeGames: true
-        })
+        });
 
         // sort games by minutes
         recentGames = recentGames
