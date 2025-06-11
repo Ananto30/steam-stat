@@ -23,9 +23,15 @@ export default async (req, res) => {
 
         const steamId = await getSteamId();
         console.log("Steam ID: ", steamId);
+        
+        // wait for a random time between 1 to 3 seconds to avoid rate limiting
+        const delay = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000;
+        await new Promise(resolve => setTimeout(resolve, delay));
 
         const summary = await steam.getUserSummary(steamId);
         console.log("User summary: ", summary);
+
+        await new Promise(resolve => setTimeout(resolve, delay));
 
         let recentGames = await steam.getUserRecentGames(steamId);
         let ownedGames = await steam.getUserOwnedGames(steamId, {
@@ -41,9 +47,9 @@ export default async (req, res) => {
             .sort((a, b) => b.minutes - a.minutes)
             .slice(0, 5);
 
-		console.log("Recent games: ");
-		console.table(recentGames);
-		console.log("Owned games: ");
+        console.log("Recent games: ");
+        console.table(recentGames);
+        console.log("Owned games: ");
         console.table(ownedGames);
 
         await downloadGamesImages(ownedGames);
@@ -67,17 +73,26 @@ export default async (req, res) => {
         if (e instanceof TypeError) {
             return res.status(404).send("Profile not found");
         }
+        if (e.message.includes("No match")) {
+            return res.status(404).send("Profile not found");
+        }
         return res.status(500).send("Something is wrong!");
     }
 
-    async function getSteamId() {
-        if (profileName) {
-            return await steam.resolve(
-                "https://steamcommunity.com/id/" + profileName
-            );
+        async function getSteamId() {
+            if (profileName) {
+                // Check if profileName is all digits (SteamID64)
+                if (/^\d+$/.test(profileName)) {
+                    return await steam.resolve(
+                        "https://steamcommunity.com/profiles/" + profileName
+                    );
+                }
+                return await steam.resolve(
+                    "https://steamcommunity.com/id/" + profileName
+                );
+            }
+            if (profileUrl) {
+                return await steam.resolve(profileUrl);
+            }
         }
-        if (profileUrl) {
-            return await steam.resolve(profileUrl);
-        }
-    }
 };
