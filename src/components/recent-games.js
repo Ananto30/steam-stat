@@ -10,7 +10,7 @@ const recentGame = (stats) => {
     <g transform="translate(-10, ${translateY})">
         <g class="stagger" style="animation-delay: ${animationDelay}ms" transform="translate(25, 0)">
         <image x="0" y="0" height="30" width="30" href="${gameLogo}"></image>
-        <text class="game-header bold" x="35" y="12">${gameName}</text>
+        <text class="game-header bold" x="35" y="12">${formatRecentlyPlayedGamesName(gameName)}</text>
         <text class="stat" x="35" y="27">${gamePlayTime}</text>
         </g>
     </g>
