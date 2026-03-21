@@ -47,7 +47,16 @@ export async function downloadGamesImages(recentGames) {
 }
 
 export function formatRecentlyPlayedGamesName(names) {
-    return names.replace(/&/g, "&amp;");
+    return names.replace(/[<>&"']/g, (c) => {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '"': return '&quot;';
+            case "'": return '&apos;';
+            default: return c;
+        }
+    });
 }
 
 function imageUrl(gameId, iconId) {

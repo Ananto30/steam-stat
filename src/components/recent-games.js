@@ -1,3 +1,5 @@
+import { formatRecentlyPlayedGamesName } from "../helpers.js";
+
 const recentGame = (stats) => {
   const {
       gameName,
@@ -22,7 +24,7 @@ const convertGamePlayTime = (t) => {
 };
 
 export function renderRecentGames(recentGames) {
-  let groupItems;
+  let groupItems = "";
   let animationDelay = 450;
   let translateY = 0;
   recentGames
