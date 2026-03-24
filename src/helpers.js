@@ -49,16 +49,16 @@ export async function downloadGamesImages(recentGames) {
 export function formatRecentlyPlayedGamesName(names) {
   return names.replace(/[<>&"']/g, (c) => {
     switch (c) {
-      case '<':
-        return '&lt;';
+      case "<":
+        return "&lt;";
       case '>':
         return '&gt;';
-      case '&':
-        return '&amp;';
+      case "&":
+        return "&amp;";
       case '"':
-        return '&quot;';
+        return "&quot;";
       case "'":
-        return '&apos;';
+        return "&apos;";
       default:
         return c;
     }
